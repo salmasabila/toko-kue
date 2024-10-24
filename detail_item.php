@@ -2,7 +2,7 @@
 session_start();
 include 'config.php';
 
-$id = $_GET['id'];
+$id = $_GET['id']; // Mendapatkan id item dari query string
 $stmt = $conn->prepare("SELECT * FROM items WHERE id = ?");
 $stmt->execute([$id]);
 $item = $stmt->fetch();
@@ -24,7 +24,6 @@ $item = $stmt->fetch();
             height: 100vh;
             margin: 0;
         }
-
         .detail-container {
             background-color: #fff;
             padding: 30px;
@@ -33,17 +32,19 @@ $item = $stmt->fetch();
             width: 350px;
             text-align: center;
         }
-
         h1 {
             color: #5a7184;
         }
-
         img {
             width: 200px;
             margin-top: 20px;
             border-radius: 10px;
         }
-
+        .description {
+            margin-top: 15px;
+            color: #333;
+            font-size: 16px;
+        }
         a {
             margin-top: 20px;
             display: inline-block;
@@ -53,7 +54,6 @@ $item = $stmt->fetch();
             border-radius: 5px;
             text-decoration: none;
         }
-
         a:hover {
             background-color: #f3969d;
         }
@@ -62,10 +62,16 @@ $item = $stmt->fetch();
 <body>
     <div class="detail-container">
         <h1>Detail Item</h1>
-        <p>Nama: <?= $item['name'] ?></p>
-        <img src="uploads/<?= $item['image'] ?>" alt="Gambar Item">
-        <br><br>
+        <p>Nama: <?= htmlspecialchars($item['name']) ?></p>
+        <img src="uploads/<?= htmlspecialchars($item['image']) ?>" alt="Gambar Item">
+        
+        <!-- Tambahan Deskripsi Produk -->
+        <div class="description">
+            <p>Deskripsi: <?= htmlspecialchars($item['description']) ?></p>
+        </div>
+
         <a href="dashboard.php">Kembali</a>
     </div>
+    
 </body>
 </html>
