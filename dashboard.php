@@ -96,5 +96,9 @@ $items = $stmt->fetchAll();
     <p>Tidak ada item yang tersedia.</p>
 <?php endif; ?>
 
+<a href="logout.php">
+    <button type="button">Logout</button>
+</a>
+
 </body>
 </html>
